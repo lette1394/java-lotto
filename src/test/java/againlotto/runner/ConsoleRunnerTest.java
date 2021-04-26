@@ -1,9 +1,9 @@
-package againlotto;
+package againlotto.runner;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-import againlotto.runner.ConsoleRunner;
+import againlotto.view.User;
 import againlotto.view.IO;
 import java.io.ByteArrayOutputStream;
 import org.junit.jupiter.api.BeforeEach;
