@@ -14,8 +14,8 @@ public class IO {
     this.printStream = new PrintStream(outputStream);
   }
 
-  public String nextLine() {
-    return scanner.nextLine();
+  public int nextInt() {
+    return scanner.nextInt();
   }
 
   public void println(String value) {

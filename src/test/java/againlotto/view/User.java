@@ -10,17 +10,16 @@ public class User {
   private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
   public void enter() {
-    safeCall(() -> outputStream.write("\n".getBytes(StandardCharsets.UTF_8)));
+    write("\n");
   }
 
   public void enterPurchaseAmount(int amount) {
-    outputStream.write(amount);
+    write(amount);
     enter();
   }
 
   public void enterLastWeekWinningNumber(int... winningNumbers) {
-    Arrays.stream(winningNumbers)
-      .forEach(number -> safeCall(() -> outputStream.write(number)));
+    Arrays.stream(winningNumbers).forEach(this::write);
     enter();
   }
 
@@ -28,25 +27,15 @@ public class User {
     return new ByteArrayInputStream(outputStream.toString().getBytes(StandardCharsets.UTF_8));
   }
 
-  private void safeCall(CheckedRunnable<?> runnable) {
+  private void write(int value) {
+    write(Integer.toString(value));
+  }
+
+  private void write(String value) {
     try {
-      runnable.run();
+      outputStream.write(value.getBytes(StandardCharsets.UTF_8));
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-  }
-
-  @FunctionalInterface
-  public interface CheckedRunnable<E extends Exception> extends Runnable {
-    @Override
-    default void run() {
-      try {
-        runThrows();
-      } catch (Exception ex) {
-        throw new RuntimeException(ex);
-      }
-    }
-
-    void runThrows() throws E;
   }
 }
