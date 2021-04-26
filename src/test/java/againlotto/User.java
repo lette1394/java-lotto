@@ -1,6 +1,8 @@
 package againlotto;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
@@ -22,8 +24,8 @@ public class User {
     enter();
   }
 
-  public String toRawInput() {
-    return outputStream.toString();
+  public InputStream toInputStream() {
+    return new ByteArrayInputStream(outputStream.toString().getBytes(StandardCharsets.UTF_8));
   }
 
   private void safeCall(CheckedRunnable<?> runnable) {
