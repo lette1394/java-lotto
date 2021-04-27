@@ -3,9 +3,13 @@ package againlotto.runner;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-import againlotto.view.User;
+import againlotto.domain.LottoStore;
+import againlotto.domain.PredefinedLottoStore;
 import againlotto.view.IO;
+import againlotto.view.User;
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
+import java.util.HashSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -58,7 +62,24 @@ class ConsoleRunnerTest {
 
   private void playLotto() {
     final IO io = new IO(aUser.toInputStream(), rawOutput);
-    final ConsoleRunner consoleRunner = new ConsoleRunner(io);
+    final LottoStore lottoStore = new PredefinedLottoStore(Arrays.asList(
+      new HashSet<>(Arrays.asList(8, 21, 23, 41, 42, 43)),
+      new HashSet<>(Arrays.asList(3, 5, 11, 16, 32, 38)),
+      new HashSet<>(Arrays.asList(7, 11, 16, 35, 36, 44)),
+      new HashSet<>(Arrays.asList(1, 8, 11, 31, 41, 42)),
+      new HashSet<>(Arrays.asList(13, 14, 16, 38, 42, 45)),
+      new HashSet<>(Arrays.asList(7, 11, 30, 40, 42, 43)),
+      new HashSet<>(Arrays.asList(2, 13, 22, 32, 38, 45)),
+      new HashSet<>(Arrays.asList(23, 25, 33, 36, 39, 41)),
+      new HashSet<>(Arrays.asList(1, 3, 5, 14, 22, 45)),
+      new HashSet<>(Arrays.asList(5, 9, 38, 41, 43, 44)),
+      new HashSet<>(Arrays.asList(2, 8, 9, 18, 19, 21)),
+      new HashSet<>(Arrays.asList(13, 14, 18, 21, 23, 35)),
+      new HashSet<>(Arrays.asList(17, 21, 29, 37, 42, 45)),
+      new HashSet<>(Arrays.asList(3, 8, 27, 30, 35, 44))
+    ));
+
+    final ConsoleRunner consoleRunner = new ConsoleRunner(io, lottoStore);
     consoleRunner.run();
   }
 

@@ -1,12 +1,10 @@
 package againlotto.domain;
 
 
+import static againlotto.domain.Contracts.requires;
 import static java.util.stream.Collectors.joining;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -14,19 +12,9 @@ public class Lotto implements StreamMixin<Integer> {
   private static final int SELECT_COUNT = 6;
   private final Set<Integer> numbers;
 
-  private Lotto(Set<Integer> numbers) {
+  public Lotto(Set<Integer> numbers) {
+    requires(numbers.size() == SELECT_COUNT, "numbers.size() == SELECT_COUNT");
     this.numbers = numbers;
-  }
-
-  public static Optional<Lotto> lotto(Integer... numbers) {
-    return lotto(new HashSet<>(Arrays.asList(numbers)));
-  }
-
-  public static Optional<Lotto> lotto(Set<Integer> numbers) {
-    if (numbers.size() != SELECT_COUNT) {
-      return Optional.empty();
-    }
-    return Optional.of(new Lotto(numbers));
   }
 
   @Override
