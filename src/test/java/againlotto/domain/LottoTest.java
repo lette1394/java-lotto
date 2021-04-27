@@ -4,8 +4,6 @@ import static againlotto.OptionalMatchers.empty;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
@@ -26,11 +24,11 @@ class LottoTest {
     assertThat(lottoOptional(NUMBERS_CONTAINS_DUPLICATE), is(empty()));
   }
 
-  private static Optional<Lotto> lottoOptional(Integer... numbers) {
-    return Lotto.lotto(new HashSet<>(Arrays.asList(numbers)));
-  }
-
   private static Lotto lotto(Integer... numbers) {
     return lottoOptional(numbers).get();
+  }
+
+  private static Optional<Lotto> lottoOptional(Integer... numbers) {
+    return Lotto.lotto(numbers);
   }
 }
