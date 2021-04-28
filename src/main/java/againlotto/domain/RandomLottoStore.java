@@ -1,8 +1,9 @@
 package againlotto.domain;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 public class RandomLottoStore implements LottoStore {
   public static final LottoStore INSTANCE = new RandomLottoStore();
@@ -22,7 +23,7 @@ public class RandomLottoStore implements LottoStore {
       .distinct()
       .limit(COUNT)
       .boxed()
-      .collect(Collectors.toSet());
+      .collect(toSet());
     return new Lotto(numbers);
   }
 }
