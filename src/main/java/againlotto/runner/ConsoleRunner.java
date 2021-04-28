@@ -1,11 +1,13 @@
 package againlotto.runner;
 
-import againlotto.domain.Lotto;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.IntStream.range;
+
+import againlotto.domain.LottoList;
 import againlotto.domain.LottoStore;
 import againlotto.domain.RandomLottoStore;
 import againlotto.view.IO;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class ConsoleRunner {
   private final IO io;
@@ -21,17 +23,13 @@ public class ConsoleRunner {
   }
 
   public void run() {
-    final int amount = requestPurchaseAmount();
+    final int amount = requestMoney() / 1000;
     showPurchaseCount(amount);
 
-    final String join = IntStream.range(0, amount / 1000)
-      .mapToObj(__ -> lottoStore.nextLotto())
-      .map(this::format)
-      .collect(Collectors.joining("\n"));
+    final LottoList lottoList = lottoList(amount);
 
+    io.println(format(lottoList));
     io.print(""
-      + join
-      + "\n"
       + "\n"
       + "지난 주 당첨 번호를 입력해 주세요.\n"
       + "\n"
@@ -44,20 +42,26 @@ public class ConsoleRunner {
       + "총 수익률은 0.35입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
   }
 
-  private String format(Lotto lotto) {
-    return lotto.sorted()
-      .map(String::valueOf)
-      .collect(Collectors.joining(", ", "[", "]"));
+  private LottoList lottoList(int amount) {
+    return new LottoList(range(0, amount)
+      .mapToObj(__ -> lottoStore.nextLotto())
+      .collect(toList()));
   }
 
-  private int requestPurchaseAmount() {
+  private String format(LottoList lottoList) {
+    return lottoList
+      .map(lotto -> lotto.sorted()
+        .map(String::valueOf)
+        .collect(joining(", ", "[", "]")))
+      .collect(joining("\n"));
+  }
+
+  private int requestMoney() {
     io.println("구입금액을 입력해 주세요.");
     return io.nextInt();
   }
 
   private void showPurchaseCount(int amount) {
-    final int count = amount / 1000;
-    io.println(String.format("%s개를 구매했습니다.", count));
+    io.println(String.format("%s개를 구매했습니다.", amount));
   }
-
 }
