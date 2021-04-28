@@ -6,6 +6,8 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class IO {
+  public static final IO STANDARD = new IO(System.in, System.out);
+
   private final Scanner scanner;
   private final PrintStream printStream;
 
