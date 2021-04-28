@@ -12,11 +12,7 @@ public class ConsoleRunner {
   private final LottoStore lottoStore;
 
   public ConsoleRunner() {
-    this(IO.STANDARD);
-  }
-
-  public ConsoleRunner(IO io) {
-    this(io, RandomLottoStore.INSTANCE);
+    this(IO.STANDARD, RandomLottoStore.INSTANCE);
   }
 
   public ConsoleRunner(IO io, LottoStore lottoStore) {
