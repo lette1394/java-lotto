@@ -14,19 +14,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ConsoleRunnerTest {
-  private User aUser;
+  private User anUser;
   private ByteArrayOutputStream rawOutput = new ByteArrayOutputStream();
 
   @BeforeEach
   void beforeEach() {
-    aUser = new User();
+    anUser = new User();
     rawOutput = new ByteArrayOutputStream();
   }
 
   @Test
   void simulate() {
-    aUser.enterPurchaseAmount(14000);
-    aUser.enterLastWeekWinningNumber(1, 2, 3, 4, 5, 6);
+    anUser.enterPurchaseAmount(14000);
+    anUser.enterLastWeekWinningNumber(1, 2, 3, 4, 5, 6);
 
     playLotto();
 
@@ -61,7 +61,7 @@ class ConsoleRunnerTest {
   }
 
   private void playLotto() {
-    final IO io = new IO(aUser.toInputStream(), rawOutput);
+    final IO io = new IO(anUser.toInputStream(), rawOutput);
     final LottoStore lottoStore = new PredefinedLottoStore(Arrays.asList(
       new HashSet<>(Arrays.asList(8, 21, 23, 41, 42, 43)),
       new HashSet<>(Arrays.asList(3, 5, 11, 16, 32, 38)),
