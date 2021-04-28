@@ -43,6 +43,7 @@ public class ConsoleRunner {
   }
 
   private List<Integer> requestWinningNumbers() {
+    // FIXME (jaeeun) 2021/04/29: extract magic string
     io.println("지난 주 당첨 번호를 입력해 주세요.");
     return io.nextIntList();
   }
@@ -73,11 +74,18 @@ public class ConsoleRunner {
   private void showStatistics(LottoMatcher lottoMatcher) {
     io.println("당첨 통계");
     io.println("---------");
+
+    // FIXME (jaeeun) 2021/04/29:
+    //  금액 중복 제거
+    //  개수 호출 추상화
     io.println(format("3개 일치 (5000원)- %s개", lottoMatcher.countMatched(3)));
     io.println(format("4개 일치 (50000원)- %s개", lottoMatcher.countMatched(4)));
     io.println(format("5개 일치 (1500000원)- %s개", lottoMatcher.countMatched(5)));
     io.println(format("6개 일치 (2000000000원)- %s개", lottoMatcher.countMatched(6)));
 
+    // FIXME (jaeeun) 2021/04/29:
+    //  formatter field로 들고 있기
+    //  formatter는 console runner에 종속
     NumberFormat formatter = NumberFormat.getInstance();
     formatter.setMaximumFractionDigits(2);
     formatter.setRoundingMode(RoundingMode.DOWN);
