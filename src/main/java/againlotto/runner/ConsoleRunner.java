@@ -32,15 +32,8 @@ public class ConsoleRunner {
     io.println();
 
     final List<Integer> winningNumbers = requestWinningNumbers();
-    io.print(""
-      + "\n"
-      + "당첨 통계\n"
-      + "---------\n"
-      + "3개 일치 (5000원)- 1개\n"
-      + "4개 일치 (50000원)- 0개\n"
-      + "5개 일치 (1500000원)- 0개\n"
-      + "6개 일치 (2000000000원)- 0개\n"
-      + "총 수익률은 0.35입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
+    io.println();
+    showStatistics(winningNumbers);
   }
 
   private List<Integer> requestWinningNumbers() {
@@ -69,5 +62,16 @@ public class ConsoleRunner {
         .map(String::valueOf)
         .collect(joining(", ", "[", "]")))
       .collect(joining("\n"));
+  }
+
+  private void showStatistics(List<Integer> winningNumbers) {
+    io.print(""
+      + "당첨 통계\n"
+      + "---------\n"
+      + "3개 일치 (5000원)- 1개\n"
+      + "4개 일치 (50000원)- 0개\n"
+      + "5개 일치 (1500000원)- 0개\n"
+      + "6개 일치 (2000000000원)- 0개\n"
+      + "총 수익률은 0.35입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
   }
 }
