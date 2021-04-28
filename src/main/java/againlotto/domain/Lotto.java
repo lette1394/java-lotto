@@ -2,8 +2,10 @@ package againlotto.domain;
 
 
 import static againlotto.domain.Contracts.requires;
+import static java.lang.Math.toIntExact;
 import static java.util.stream.Collectors.joining;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -26,5 +28,11 @@ public class Lotto implements StreamMixin<Integer> {
     return numbers.stream()
       .map(String::valueOf)
       .collect(joining(", ", "lotto [", "]"));
+  }
+
+  public int countThatMatchesWith(List<Integer> winningNumbers) {
+    return toIntExact(numbers.stream()
+      .filter(winningNumbers::contains)
+      .count());
   }
 }

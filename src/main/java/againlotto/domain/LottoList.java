@@ -14,4 +14,8 @@ public class LottoList implements StreamMixin<Lotto> {
   public Stream<Lotto> getStream() {
     return lottoList.stream();
   }
+
+  public LottoMatcher match(List<Integer> winningNumbers) {
+    return new LottoMatcher(this, winningNumbers);
+  }
 }
