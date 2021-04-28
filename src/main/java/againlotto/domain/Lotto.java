@@ -25,6 +25,6 @@ public class Lotto implements StreamMixin<Integer> {
   public String toString() {
     return numbers.stream()
       .map(String::valueOf)
-      .collect(joining(", ", "[", "]"));
+      .collect(joining(", ", "lotto [", "]"));
   }
 }

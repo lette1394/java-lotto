@@ -76,8 +76,7 @@ class ConsoleRunnerTest {
     final IO io = new IO(anUser.toInputStream(), rawOutput);
     final LottoStore lottoStore = new PredefinedLottoStore(lottoNumbers);
 
-    final ConsoleRunner consoleRunner = new ConsoleRunner(io, lottoStore);
-    consoleRunner.run();
+    new ConsoleRunner(io, lottoStore).run();
   }
 
   private String consoleOutput() {

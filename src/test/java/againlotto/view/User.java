@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class User {
   private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -19,7 +20,9 @@ public class User {
   }
 
   public void enterLastWeekWinningNumber(int... winningNumbers) {
-    Arrays.stream(winningNumbers).forEach(this::write);
+    write(Arrays.stream(winningNumbers)
+      .mapToObj(String::valueOf)
+      .collect(Collectors.joining(", ")));
     enter();
   }
 

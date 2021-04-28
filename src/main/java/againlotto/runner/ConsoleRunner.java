@@ -8,6 +8,7 @@ import againlotto.domain.LottoList;
 import againlotto.domain.LottoStore;
 import againlotto.domain.RandomLottoStore;
 import againlotto.view.IO;
+import java.util.List;
 
 public class ConsoleRunner {
   private final IO io;
@@ -27,11 +28,11 @@ public class ConsoleRunner {
     showPurchaseCount(amount);
 
     final LottoList lottoList = lottoList(amount);
-
     io.println(format(lottoList));
+    io.println();
+
+    final List<Integer> winningNumbers = requestWinningNumbers();
     io.print(""
-      + "\n"
-      + "지난 주 당첨 번호를 입력해 주세요.\n"
       + "\n"
       + "당첨 통계\n"
       + "---------\n"
@@ -40,6 +41,20 @@ public class ConsoleRunner {
       + "5개 일치 (1500000원)- 0개\n"
       + "6개 일치 (2000000000원)- 0개\n"
       + "총 수익률은 0.35입니다.(기준이 1이기 때문에 결과적으로 손해라는 의미임)");
+  }
+
+  private List<Integer> requestWinningNumbers() {
+    io.println("지난 주 당첨 번호를 입력해 주세요.");
+    return io.nextIntList();
+  }
+
+  private int requestMoney() {
+    io.println("구입금액을 입력해 주세요.");
+    return io.nextInt();
+  }
+
+  private void showPurchaseCount(int amount) {
+    io.println(String.format("%s개를 구매했습니다.", amount));
   }
 
   private LottoList lottoList(int amount) {
@@ -54,14 +69,5 @@ public class ConsoleRunner {
         .map(String::valueOf)
         .collect(joining(", ", "[", "]")))
       .collect(joining("\n"));
-  }
-
-  private int requestMoney() {
-    io.println("구입금액을 입력해 주세요.");
-    return io.nextInt();
-  }
-
-  private void showPurchaseCount(int amount) {
-    io.println(String.format("%s개를 구매했습니다.", amount));
   }
 }

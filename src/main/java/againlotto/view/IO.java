@@ -1,8 +1,13 @@
 package againlotto.view;
 
+import static java.lang.Integer.parseInt;
+import static java.util.stream.Collectors.toList;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class IO {
@@ -17,7 +22,18 @@ public class IO {
   }
 
   public int nextInt() {
-    return scanner.nextInt();
+    return parseInt(scanner.nextLine());
+  }
+
+  public List<Integer> nextIntList() {
+    return Arrays.stream(scanner.nextLine().split(","))
+      .map(String::trim)
+      .map(Integer::parseInt)
+      .collect(toList());
+  }
+
+  public void println() {
+    printStream.println();
   }
 
   public void println(String value) {
